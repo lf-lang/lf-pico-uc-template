@@ -2,7 +2,7 @@
 This is a project template for developing applications targeting the Raspberry Pi Pico using the micro-C target of Lingua Franca.
 
 ## Prerequisites
-- Linux or macOS operation system
+- Linux or macOS operating system
 - [reactor-uc](https://github.com/lf-lang/reactor-uc) cloned to your system and `REACTOR_UC_PATH` environment variable pointing to it.## Prerequisites
 
 
