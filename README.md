@@ -1,6 +1,10 @@
 # Template for the Lingua Franca RP2040 target platform
 This is a project template for developing applications targeting the Raspberry Pi Pico using the micro-C target of Lingua Franca.
 
+## Prerequisites
+- Linux or macOS operation system
+- [reactor-uc](https://github.com/lf-lang/reactor-uc) cloned to your system and `REACTOR_UC_PATH` environment variable pointing to it.## Prerequisites
+
 
 ## Setup
 Create a new repository based on this template, clone it recursively to your local machine and enter
@@ -55,6 +59,12 @@ recommend that you modify the corresponding variable at the top of the
 the command line.
 ```sh
 cmake -Bbuild -DLOG_LEVEL=LF_LOG_LEVEL_DEBUG .
+```
+
+## Cleaning build artifacts
+To delete all build artifacts both from CMake and LFC do:
+```sh
+rm -rf src-gen build
 ```
 
 
