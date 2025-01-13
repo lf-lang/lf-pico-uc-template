@@ -1,6 +1,2 @@
-test/node_modules/
-bin/
-target/
 src-gen/
-include/
 build/
