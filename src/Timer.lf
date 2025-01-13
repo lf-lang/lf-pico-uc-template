@@ -1,0 +1,22 @@
+target uC {
+  timeout: 10 sec
+}
+
+preamble {=
+  #include <stdio.h>
+  #include "pico/stdlib.h"
+  #include "reactor-uc/reactor-c.h"
+=}
+
+main reactor {
+  timer t1(0, 1 sec)
+
+  reaction(t1) {=
+    interval_t t = lf_time_logical_elapsed();
+    interval_t T = lf_time_physical_elapsed();
+    printf(
+        "Elapsed logical time %lld, physical time %lld, lag: %lld\n",
+        t, T, T-t
+    );
+  =}
+}

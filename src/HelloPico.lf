@@ -1,0 +1,15 @@
+target uC {
+  timeout: 5 sec
+}
+
+preamble {=
+  #include <stdio.h>
+=}
+
+main reactor {
+  timer t1(0, 1 sec)
+
+  reaction(t1) {=
+    printf("Hello World!\n");
+  =}
+}
