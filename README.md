@@ -1,4 +1,13 @@
-# Template for the Lingua Franca RP2040 target platform
+# reactor-uc raspberry pi pico template
+
+![Pico Logo](https://www.raspberrypi.com/documentation/microcontrollers/images/pico-2-r4-pinout.svg)
+
+- **Git:** https://github.com/raspberrypi/pico-sdk/
+- **Supported Boards:** Pico, Pico2, PicoW
+- **Documentation:** https://www.raspberrypi.com/documentation/pico-sdk/ 
+
+______
+
 This is a project template for developing applications targeting the Raspberry Pi Pico using the micro-C target of Lingua Franca.
 
 ## Prerequisites
