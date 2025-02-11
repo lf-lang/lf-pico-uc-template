@@ -1,9 +1,9 @@
 # reactor-uc raspberry pi pico template
 
-![Pico Logo](https://www.raspberrypi.com/documentation/microcontrollers/images/pico-2-r4-pinout.svg)
+![Pico Logo](https://upload.wikimedia.org/wikipedia/en/thumb/c/cb/Raspberry_Pi_Logo.svg/601px-Raspberry_Pi_Logo.svg.png)
 
 - **Git:** https://github.com/raspberrypi/pico-sdk/
-- **Supported Boards:** Pico, Pico2, PicoW
+- **Supported Boards:** https://www.raspberrypi.com/documentation/microcontrollers/pico-series.html
 - **Documentation:** https://www.raspberrypi.com/documentation/pico-sdk/ 
 
 ______
