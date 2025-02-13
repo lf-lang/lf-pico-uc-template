@@ -25,4 +25,4 @@ jobs:
         uses: ./reactor-uc/.github/actions/lingua-franca
 
       - name: Run tests
-        uses: ./.github/actions/run-tests
+        run: ./.github/scripts/run-all.sh
