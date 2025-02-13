@@ -15,8 +15,12 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Clone reactor-uc runtime
-        run: git clone https://github.com/lf-lang/reactor-uc.git --recursive
+      - name: Checkout reactor-uc
+        uses: actions/checkout@v3
+        with:
+          repository: lf-lang/reactor-uc
+          path: reactor-uc
+          submodules: recursive
 
       - name: Install Pico dependencies
         uses: ./reactor-uc/.github/actions/pico
