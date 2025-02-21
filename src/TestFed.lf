@@ -1,0 +1,46 @@
+target uC
+
+import Led from "./lib/Led.lf"
+
+reactor Src(id: int = 0) {
+  state count: int = id;
+
+  output out: int
+  led = new Led()
+
+  timer t(1sec, 1sec);
+
+  reaction(t) -> out, led.tog {=
+    self->count++;
+    lf_set(out, self->count);
+    lf_set(led.tog, true);
+  =}
+}
+
+reactor Dst {
+  led = new Led()
+
+  input in: int
+  timer t(1sec, 1sec);
+  
+  reaction(t) -> led.tog {=
+    lf_set(led.tog, true);
+    printf("TOGGLE\n");
+  =}
+
+  reaction(in) -> led.tog{=
+    lf_set(led.tog, true);
+  =}
+}
+
+federated reactor {
+  @interface_uart(name="uart0", uart_device=1, baud_rate=57600, data_bits=8, parity="UART_PARITY_EVEN", stop_bits=1, async=false)
+  fed1 = new Src(id=42)
+
+  @interface_uart(name="uart0", uart_device=1, baud_rate=57600, data_bits=8, parity="UART_PARITY_EVEN", stop_bits=1, async=false)
+  fed2 = new Dst()
+
+  @link(left="uart0", right="uart0")
+  fed1.out -> fed2.in
+}
+

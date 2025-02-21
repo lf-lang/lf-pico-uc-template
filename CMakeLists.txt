@@ -8,13 +8,23 @@ if (NOT DEFINED LF_MAIN)
 endif()
 
 if (NOT DEFINED LOG_LEVEL)
-  set(LOG_LEVEL "LF_LOG_LEVEL_WARN")
+  set(LOG_LEVEL "LF_LOG_LEVEL_DEBUG")
 endif()
 
 pico_sdk_init()
 
-set(LF_MAIN_TARGET ${LF_MAIN})
-add_executable(${LF_MAIN_TARGET})
+if (NOT DEFINED FEDERATE)
+  include(${CMAKE_CURRENT_SOURCE_DIR}/src-gen/${LF_MAIN}/CMakeLists.txt)
+else()
+  include(${CMAKE_CURRENT_SOURCE_DIR}/src-gen/${LF_MAIN}/${FEDERATE}/Include.cmake)
+endif()
+
+add_subdirectory($ENV{REACTOR_UC_PATH} ${CMAKE_CURRENT_BINARY_DIR}/reactor-uc)
+target_compile_definitions(reactor-uc PUBLIC LF_LOG_LEVEL_ALL=${LOG_LEVEL})
+target_compile_definitions(reactor-uc PUBLIC LF_LOG_LEVEL_PLATFORM=LF_LOG_LEVEL_WARN)
+target_compile_definitions(reactor-uc PUBLIC LF_COLORIZE_LOGS=0)
+target_compile_definitions(reactor-uc PUBLIC NETWORK_CHANNEL_UART)
+target_compile_definitions(reactor-uc PUBLIC PLATFORM_PICO)
 
 include($ENV{REACTOR_UC_PATH}/cmake/lfc.cmake)
 
