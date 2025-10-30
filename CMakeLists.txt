@@ -23,5 +23,8 @@ lf_run_lfc(${CMAKE_CURRENT_SOURCE_DIR}/src ${LF_MAIN})
 lf_build_generated_code(${LF_MAIN_TARGET} ${CMAKE_CURRENT_SOURCE_DIR}/src-gen/${LF_MAIN})
 
 target_link_libraries(${LF_MAIN_TARGET} PUBLIC pico_stdlib pico_sync)
+if (PICO_CYW43_SUPPORTED)
+  target_link_libraries(${LF_MAIN_TARGET} PUBLIC pico_cyw43_arch_none)
+endif()
 pico_enable_stdio_usb(${LF_MAIN_TARGET} 1)
 pico_enable_stdio_uart(${LF_MAIN_TARGET} 1)
