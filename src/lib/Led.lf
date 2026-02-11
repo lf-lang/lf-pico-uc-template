@@ -24,7 +24,7 @@ preamble {=
   }
 
   // Toggle the led
-  static void pico_toggle_led(bool led_on) {
+  static void pico_set_led(bool led_on) {
   #if defined(PICO_DEFAULT_LED_PIN)
     // Just set the GPIO on or off
     gpio_put(PICO_DEFAULT_LED_PIN, led_on);
@@ -51,11 +51,11 @@ reactor Led {
 
   reaction(tog) {=
     self->led = !self->led;
-    pico_toggle_led(self->led);
+    pico_set_led(self->led);
   =}
 
   reaction(set) {=
     self->led = set->value;
-    pico_toggle_led(self->led);
+    pico_set_led(self->led);
   =}
 }
