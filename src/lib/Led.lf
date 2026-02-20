@@ -1,38 +1,46 @@
+# Led.lf
 target uC
 
 preamble {=
   #include <pico/stdlib.h>
+  #include <hardware/gpio.h>
 
-  #ifdef CYW43_WL_GPIO_LED_PIN
-  #include "pico/cyw43_arch.h"
+  // PICO_DEFAULT_LED_PIN is expected for Pico, Pico H, and Pico 2
+  #ifdef PICO_DEFAULT_LED_PIN
+  #define PICO_IS_NOT_W true
+  #else 
+  #define PICO_IS_NOT_W false
   #endif
 
-  // Perform initialisation
-  static int pico_led_init(void) {
-  #if defined(PICO_DEFAULT_LED_PIN)
-    // A device like Pico that uses a GPIO for the LED will define PICO_DEFAULT_LED_PIN
-    // so we can use normal GPIO functionality to turn the led on and off
+  // CYW43_WL_GPIO_LED_PIN is expected for Pico W, Pico WH, and Pico 2 W
+  #ifdef CYW43_WL_GPIO_LED_PIN
+  #include "pico/cyw43_arch.h"
+  #define PICO_IS_W true
+  #else
+  #define PICO_IS_W false
+  #endif
+
+  #if (PICO_IS_NOT_W && PICO_IS_W)
+  #warning Both PICO_DEFAULT_LED_PIN and CYW43_WL_GPIO_LED_PIN defined
+  #elif (!PICO_IS_NOT_W && !PICO_IS_W)
+  #warning Both PICO_DEFAULT_LED_PIN and CYW43_WL_GPIO_LED_PIN undefined
+  #endif
+
+  static int init_led(void) {
+  #if PICO_IS_W
+    return cyw43_arch_init();
+  #else
     gpio_init(PICO_DEFAULT_LED_PIN);
     gpio_set_dir(PICO_DEFAULT_LED_PIN, GPIO_OUT);
     return PICO_OK;
-  #elif defined(CYW43_WL_GPIO_LED_PIN)
-    // For Pico W devices we need to initialise the driver etc
-    return cyw43_arch_init();
-  #else
-  #error "No LED pin defined for Pico"
   #endif
   }
 
-  // Toggle the led
-  static void pico_set_led(bool led_on) {
-  #if defined(PICO_DEFAULT_LED_PIN)
-    // Just set the GPIO on or off
-    gpio_put(PICO_DEFAULT_LED_PIN, led_on);
-  #elif defined(CYW43_WL_GPIO_LED_PIN)
-    // Ask the wifi "driver" to set the GPIO on or off
+  static void set_led(bool led_on) {
+  #if PICO_IS_W
     cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, led_on);
   #else
-  #error "No LED pin defined for Pico"
+    gpio_put(PICO_DEFAULT_LED_PIN, led_on);
   #endif
   }
 =}
@@ -46,16 +54,16 @@ reactor Led {
   state led: bool
 
   reaction(startup) {=
-    pico_led_init();
+    init_led();
   =}
 
   reaction(tog) {=
     self->led = !self->led;
-    pico_set_led(self->led);
+    set_led(self->led);
   =}
 
   reaction(set) {=
     self->led = set->value;
-    pico_set_led(self->led);
+    set_led(self->led);
   =}
 }
