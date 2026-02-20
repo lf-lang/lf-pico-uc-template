@@ -60,6 +60,8 @@ Make sure that the `pico-sdk` submodule is initialized:
 ```sh
 git submodule update --init --recursive
 ```
+### Support for Pico 2
+These instructions can also support the Pico 2 and Pico 2 W, which use the RP2350. Ensure that the environment variables are set correctly (e.g., `export PICO_BOARD=pico2_w; export PICO_PLATFORM=rp2350` to accomodate the Pico 2 W).
 
 ## Building
 
@@ -69,14 +71,14 @@ first configure the project using
 ```sh
 cmake -Bbuild
 ```
+This step will invoke `lfc` on the main LF application (`src/Blink.lf` by default) and create the `build` directory populated with build files.
 
-This step will invoke `lfc` on the main LF application.
-
-Before compiling the application with
+Next, compile the application with
 
 ```sh
 cmake --build build -j $(nproc)
 ```
+which will create `build/Blink.elf`.
 
 To rebuild the application simply repeat the last command
 
