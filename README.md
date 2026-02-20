@@ -94,7 +94,7 @@ capabilities.
 Run the following to flash an application binary on to your board.
 
 ``` shell
-picotool load -x bin/Blink.elf
+picotool load -x build/Blink.elf
 ```
 
 ## Changing build parameters
