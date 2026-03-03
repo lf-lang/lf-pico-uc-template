@@ -61,7 +61,7 @@ Make sure that the `pico-sdk` submodule is initialized:
 git submodule update --init --recursive
 ```
 ### Support for different boards and platforms (RP2040 / RP2350)
-These instructions can also support boards based on the RP2350, such as the Pico 2 and Pico 2 W. In many cases, you can rely on the board configuration to automatically set the platform. For example, `export PICO_BOARD=pico2` will lead to `PICO_PLATFORM=rp2350`. Alternatively, pass `-DPICO_BOARD=pico2_w` to CMake. For more information, see the "Platform and Board Configuration" chapter of the [Raspberry Pi Pico-series C/C++ SDK](https://rptl.io/pico-c-sdk) book.
+This template is applicable to both RP2040 and and RP2350 based boards. In many cases, you can rely on the board configuration to automatically set the platform. For example, `export PICO_BOARD=pico2` will lead to `PICO_PLATFORM=rp2350`. Alternatively, pass `-DPICO_BOARD=pico2_w` to CMake. For more information, see the "Platform and Board Configuration" chapter of the [Raspberry Pi Pico-series C/C++ SDK](https://rptl.io/pico-c-sdk) book.
 
 ## Building
 
