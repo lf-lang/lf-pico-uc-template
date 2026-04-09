@@ -1,5 +1,4 @@
-target uC {
-}
+target uC
 
 preamble {=
   #include <stdio.h>
