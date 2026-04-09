@@ -1,6 +1,4 @@
-target uC {
-  timeout: 10 sec
-}
+target uC
 
 preamble {=
   #include <stdio.h>
@@ -8,6 +6,7 @@ preamble {=
   #include "reactor-uc/reactor-c.h"
 =}
 
+@timeout(10s)
 main reactor {
   timer t1(0, 1 sec)
 

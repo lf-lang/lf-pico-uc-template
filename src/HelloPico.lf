@@ -1,11 +1,10 @@
-target uC {
-  timeout: 5 sec
-}
+target uC
 
 preamble {=
   #include <stdio.h>
 =}
 
+@timeout(5s)
 main reactor {
   timer t1(0, 1 sec)
 

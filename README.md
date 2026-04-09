@@ -194,9 +194,11 @@ The gnu debugger is an open source program for stepping through application code
 Make sure the intended program to be debugged on the **target** device has an accessible `.elf` binary that was built using the `Debug` option. To specify this property in an LF program, add the following to the program header:
 
 ```lf
-target uC {
-    build-type: "Debug"
-    ...
+target uC
+
+@build_type("DEBUG")
+main reactor {
+    // ...
 }
 ```
 
