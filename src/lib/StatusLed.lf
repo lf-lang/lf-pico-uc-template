@@ -1,0 +1,35 @@
+# define a reactor to control the "status" LED, which is connected to the GPIO defined by PICO_DEFAULT_LED_PIN,
+# or via the WiFi chip on boards like Pico W or Pico 2 W
+target uC
+
+# note: application should only use a single async_context instance to talk to the WiFi chip
+preamble {=
+  #include <pico/stdlib.h>
+  #include "pico/status_led.h"
+=}
+
+# "Status Led" reactor that keeps track of led state. Can either be toggled or set using different inputs
+reactor StatusLed {
+  input tog: bool  // when is_present, will toggle the led
+  input set: bool  // when is_present, set the led state to the input value
+  state led: bool
+
+  reaction(startup) {=
+    bool ans = status_led_init();
+    hard_assert(ans);
+  =}
+
+  reaction(tog) {=
+    self->led = !self->led;
+    status_led_set_state(self->led);
+  =}
+
+  reaction(set) {=
+    self->led = set->value;
+    status_led_set_state(self->led);
+  =}
+
+  reaction(shutdown) {=
+    status_led_deinit();
+  =}
+}
