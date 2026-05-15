@@ -4,11 +4,15 @@ project(reactor-uc-pico)
 set(PLATFORM "PICO" CACHE STRING "Platform to target")
 
 if (NOT DEFINED LF_MAIN)
-  set(LF_MAIN "Blink")
+  set(LF_MAIN "BlinkStatus")
 endif()
 
 if (NOT DEFINED LOG_LEVEL)
   set(LOG_LEVEL "LF_LOG_LEVEL_WARN")
+endif()
+
+if (PICO_SDK_VERSION_STRING VERSION_LESS "2.2.0")
+  message(FATAL_ERROR "Raspberry Pi Pico SDK version 2.2.0 (or later) required. Your version is ${PICO_SDK_VERSION_STRING}")
 endif()
 
 pico_sdk_init()
@@ -26,5 +30,6 @@ target_link_libraries(${LF_MAIN_TARGET} PUBLIC pico_stdlib pico_sync)
 if (PICO_CYW43_SUPPORTED)
   target_link_libraries(${LF_MAIN_TARGET} PUBLIC pico_cyw43_arch_none)
 endif()
+target_link_libraries(${LF_MAIN_TARGET} PUBLIC pico_status_led)
 pico_enable_stdio_usb(${LF_MAIN_TARGET} 1)
 pico_enable_stdio_uart(${LF_MAIN_TARGET} 1)

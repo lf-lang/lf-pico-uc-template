@@ -1,0 +1,13 @@
+#
+target uC
+
+import StatusLed from "./lib/StatusLed.lf"
+
+main reactor {
+  timer t1(0, 1 s)
+  led = new StatusLed()
+
+  reaction(t1) -> led.tog {=
+    lf_set(led.tog, NULL);
+  =}
+}
