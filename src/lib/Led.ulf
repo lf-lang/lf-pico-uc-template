@@ -1,6 +1,3 @@
-# Led.lf
-target uC
-
 preamble {=
   #include <pico/stdlib.h>
   #include <hardware/gpio.h>

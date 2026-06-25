@@ -1,6 +1,4 @@
-target uC
-
-import Led from "./lib/Led.lf"
+import Led from "./lib/Led.ulf"
 
 reactor Src(id: int = 0) {
   state count: int = id;

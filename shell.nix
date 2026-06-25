@@ -96,9 +96,11 @@ pkgs.mkShell {
     openocd
     picotool
     python312Packages.pyserial
+    python312Packages.psutil
     buildPackages.gcc-arm-embedded
     buildPackages.binutils
-    buildPackages.libcCross
+    buildPackages.glibc_multi
+    #buildPackages.libcCross
     newlib-nano
   ];
 

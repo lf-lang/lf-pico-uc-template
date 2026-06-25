@@ -1,9 +1,7 @@
-target uC
-
-import Led from "./lib/Led.lf"
+import Led from "./lib/Led.ulf"
 
 main reactor {
-  timer t1(0, 100 msec)
+  timer t1(0, 200 msec)
   led = new Led()
 
   reaction(t1) -> led.tog {=
